@@ -1,3 +1,13 @@
+<?php  
+// session | cookies
+session_start();
+//cek login sudah atau belum
+if(!isset($_SESSION['login'])) {
+    header("Location:login.php");
+    exit;
+}
+?>
+
 <!doctype html>
 <html lang="en">
     <head>
@@ -7,7 +17,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg" style="background-color: #157fdbff;" data-bs-theme="light">
+        <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;" data-bs-theme="light">
             <div class="container">
                 <a class="navbar-brand" href="#"><b>Akademik</b></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,8 +35,10 @@
                             <a class="nav-link" href="index.php?page=prodi">Program Studi</a>
                         </li>
                     </ul>
+                    <div class="ms-auto">
+                        <a href="logout.php" class="btn btn-outline-danger" onclick="return confirm('Yakin ingin logout?')">Logout</a>
+                    </div>
                 </div>
-            </div>
         </nav>
         <div class="container my-4">
             <?php

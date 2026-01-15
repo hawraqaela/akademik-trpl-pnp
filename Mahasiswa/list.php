@@ -1,41 +1,36 @@
-<h1>List Data Mahasiswa</h1>
-    <a href = 'index.php?page=mahasiswa_create' class = "btn btn-info">Input Mahasiswa</a>
-    <table class="table table-striped">
-        <thead>
+<h1 class="mb-4">Daftar Mahasiswa</h1>
+
+<a href="index.php?page=create" class="btn mb-3 text-white" style="background-color: #ff69b4; border-color: #ff69b4;">Tambah Mahasiswa</a>
+
+<table class="table table-striped table-hover">
+    <thead style="background-color: #ff69b4;">
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">NIM</th>
+            <th scope="col">Nama</th>
+            <th scope="col">Tanggal Lahir</th>
+            <th scope="col">Alamat</th>
+            <th scope="col">Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        require(__DIR__ . '/../koneksi.php');
+        $tampil = mysqli_query($koneksi, "SELECT * FROM mahasiswa");
+        $i = 1;
+        while ($data = mysqli_fetch_assoc($tampil)) {
+        ?>
             <tr>
-                <th scope="col">No</th>
-                <th scope="col">NIM</th>
-                <th scope="col">Nama</th>
-                <th scope="col">Tanggal Lahir</th>
-                <th scope="col">Program Studi</th>
-                <th scope="col">Alamat</th>
-                <th scope="col">Aksi</th>
+                <th scope="row"><?= $i++ ?></th>
+                <td><?= $data['nim'] ?></td>
+                <td><?= $data['nama_mhs'] ?></td>
+                <td><?= $data['tgl_lahir'] ?></td>
+                <td><?= $data['alamat'] ?></td>
+                <td>
+                    <a href="index.php?nim=<?= $data["nim"] ?>&page=edit" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="delete.php?nim=<?= $data['nim'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus data?')">Hapus</a>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            <?php 
-            require 'koneksi.php';
-            $tampil = $db->query("SELECT m.nim, m.nama_mhs, m.tgl_lahir, m.alamat, p.nama_prodi, p.jenjang FROM mahasiswa m 
-                                    LEFT JOIN prodi p ON m.prodi_id = p.id");
-            $no=1;
-            //looping data tamu
-            while($data = mysqli_fetch_assoc($tampil)){
-            ?>
-                <tr>
-                    <th scope="row"><?= $no++ ?></th>
-                    <td><?= $data['nim'] ?></td>
-                    <td><?= $data['nama_mhs'] ?></td>
-                    <td><?= $data['tgl_lahir'] ?></td>
-                    <td>
-                        <?= $data['nama_prodi']; ?> (<?= $data['jenjang']; ?>)
-                    </td>
-                    <td><?= $data['alamat'] ?></td>
-                    <td>
-                        <a href="/web_programming/Akademik/proses.php?aksi=hapus_mahasiswa&nim=<?= $data['nim'] ?>" class="btn btn-info" name="Delete" >Delete</a>
-                        <a href="index.php?nim=<?php echo $data['nim'] ?>&page=mahasiswa_update" class="btn btn-secondary"">Edit</a>
-                    </td>
-                </tr>
-            <?php } ?>
-        </tbody>
-    </table>
-        
+        <?php } ?>
+    </tbody>
+</table>

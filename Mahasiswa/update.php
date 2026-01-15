@@ -1,15 +1,15 @@
 <?php
-require 'koneksi.php';
+require '../koneksi.php';
 $nim = $_GET['nim'];
 
-$edit = $db->query("SELECT * FROM mahasiswa WHERE nim = '$nim'");
+$edit = $koneksi->query("SELECT * FROM mahasiswa WHERE nim = '$nim'");
 $data = mysqli_fetch_assoc($edit);
 
-$prodi = $db->query("SELECT id, nama_prodi, jenjang FROM prodi");
+$prodi = $koneksi->query("SELECT id, nama_prodi, jenjang FROM prodi");
 ?>
 
 <h1>Edit Data Mahasiswa</h1>
-<form method="post" action="/web_programming/Akademik/proses.php?nim=<?= $nim ?>">
+<form method="post" action="../proses.php?nim=<?= $nim ?>">
     <div class="mb-3">
         <label class="form-label">Nama</label>
         <input type="text" class="form-control" name="nama_mhs" value="<?= $data['nama_mhs']; ?>">

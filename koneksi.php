@@ -1,13 +1,12 @@
 <?php
-    $server = "localhost";
-    $user = "root";
-    $pass = "";
-    $nama_db = "db_akademik";   
+// Connection uses same variable name as buku tamu sample ($db)
+$server = "localhost";
+$user = "root";
+$password = "";
+$nama_database = "db_akademik";
 
-    $db = new mysqli($server, $user, $pass, $nama_db); //open connection
+$koneksi = new mysqli($server, $user, $password, $nama_database);
 
-    if (!$db) {
-        die("Gagal terhubung dengan database: " .mysqli_connect_error());
-    }
-
-?>
+if (!$koneksi) {
+    die("Gagal terhubung dengan database: " . $koneksi->error);
+}
